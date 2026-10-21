@@ -57,7 +57,7 @@ public class PlayerService {
 
     @Transactional
     public Player createPlayer(Player player) {
-
+        player.setFantasyPoints(0);
         return playerRepository.save(player);
 
     }
@@ -104,12 +104,6 @@ public class PlayerService {
 
         player.setOverallRating(
                 newPlayer.getOverallRating()
-        );
-
-
-
-        player.setFantasyPoints(
-                newPlayer.getFantasyPoints()
         );
 
 
