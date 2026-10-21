@@ -9,5 +9,7 @@ public record TeamMemberResponse(
         Double price,
         Double rating,
         String image,
-        String formationSlot
+        String formationSlot,
+        Integer fantasyPoints,
+        Boolean captain
 ) {}
