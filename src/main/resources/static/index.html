@@ -1,10 +1,59 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#062219">
+    <meta name="description" content="Build your Oman fantasy football squad, follow the fixtures and compete with your friends on Tashkeela.">
+    <title>Tashkeela  |  Oman Fantasy Football</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-$END$
+<body class="landing-page">
+<header class="landing-header">
+    <nav class="landing-nav" aria-label="Main navigation">
+        <a class="landing-brand" href="/" aria-label="Tashkeela home"><img src="/assets/images/logo.png" alt=""><span>TASHKEELA<small>OMAN FANTASY FOOTBALL</small></span></a>
+        <div class="landing-nav-links"><a href="#fixtures">Fixtures</a><a href="#inside-the-game">How to play</a></div>
+        <div class="landing-actions"><a class="landing-login" href="/login.html">Sign in</a><a class="button button-primary" href="/register.html">Register</a></div>
+    </nav>
+</header>
+<main>
+    <section class="landing-hero">
+        <div class="landing-hero-copy">
+            <p class="eyebrow"><span class="live-dot"></span> YOUR OMAN FOOTBALL SEASON STARTS HERE</p>
+            <h1>Every match has a story.<br><span>Make yours count.</span></h1>
+            <p class="landing-lede">Pick your players, shape your starting eleven and follow the Oman football season from your own dugout.</p>
+            <div class="landing-hero-actions"><a class="button button-primary" href="/register.html">Create your team <span aria-hidden="true">-></span></a><a class="landing-text-link" href="#fixtures">Explore the league <span aria-hidden="true">v</span></a></div>
+            <div class="landing-proof"><span class="proof-mark">11</span><span>One squad. Every decision is yours.</span></div>
+        </div>
+        <aside class="hero-match-card" aria-label="Tashkeela season information">
+            <div class="hero-card-top"><span class="tag">THE MANAGER'S GAME</span><span class="hero-season">TASHKEELA</span></div>
+            <div class="pitch-graphic" aria-hidden="true"><span class="pitch-line pitch-midline"></span><span class="pitch-circle"></span><span class="pitch-player player-one">GK</span><span class="pitch-player player-two">DEF</span><span class="pitch-player player-three">MID</span><span class="pitch-player player-four">FWD</span><span class="pitch-ball">O</span></div>
+            <div class="hero-card-bottom"><div><strong>Build your starting XI</strong><span>Choose from the player market</span></div><span class="hero-card-arrow">></span></div>
+        </aside>
+        <div class="hero-decoration" aria-hidden="true">OMAN<br>FOOTBALL</div>
+    </section>
+
+    <section class="landing-strip" aria-label="Fantasy football features">
+        <span><b>01</b> Pick your players</span><i></i><span><b>02</b> Follow the fixtures</span><i></i><span><b>03</b> Climb the leaderboard</span>
+    </section>
+
+    <section class="landing-section" id="fixtures">
+        <div class="landing-section-heading"><div><p class="eyebrow">FROM THE LEAGUE</p><h2>The next chapter</h2><p class="landing-section-lede">Fixtures and player picks from the Tashkeela database. Your league admin keeps this view up to date.</p></div><a class="landing-text-link" href="/register.html">Join the season <span aria-hidden="true">-></span></a></div>
+        <div class="landing-data-grid">
+            <article class="landing-data-panel"><div class="landing-panel-heading"><div><span class="landing-panel-icon">></span><h3>Fixture watch</h3></div><a href="/register.html" aria-label="Register to follow matches">View all -></a></div><div id="landingMatches" class="landing-match-list"><p class="landing-loading">Loading fixtures...</p></div></article>
+            <article class="landing-data-panel landing-player-panel"><div class="landing-panel-heading"><div><span class="landing-panel-icon">*</span><h3>Players to watch</h3></div><a href="/register.html" aria-label="Register to explore players">Explore market -></a></div><div id="landingPlayers" class="landing-player-list"><p class="landing-loading">Loading player picks...</p></div></article>
+        </div>
+    </section>
+
+    <section class="landing-story" id="inside-the-game">
+        <div class="story-number">THE GAME<br><strong>01-03</strong></div>
+        <div class="story-copy"><p class="eyebrow">YOUR CALL, EVERY ROUND</p><h2>Think like a manager.<br>Play for the badge.</h2><p>Build a squad from the available player market, watch the real fixtures listed by your league and see how your choices shape your place on the table.</p></div>
+        <div class="story-steps"><div><span>01</span><p><strong>Make it yours</strong><small>Create an account and name your fantasy team.</small></p></div><div><span>02</span><p><strong>Pick your eleven</strong><small>Balance your budget and build a squad.</small></p></div><div><span>03</span><p><strong>Follow the season</strong><small>Check fixtures, points and the leaderboard.</small></p></div></div>
+    </section>
+
+    <section class="landing-cta"><div><p class="eyebrow">THE TOUCHLINE IS YOURS</p><h2>Ready to make your picks?</h2><p>Register and start building your Tashkeela squad.</p></div><a class="button button-primary" href="/register.html">Register to Tashkeela <span aria-hidden="true">-></span></a></section>
+</main>
+<footer class="landing-footer"><a class="landing-brand" href="/"><img src="/assets/images/logo.png" alt=""><span>TASHKEELA<small>OMAN FANTASY FOOTBALL</small></span></a><span>Made for the love of Oman football.</span><a href="/login.html">Manager sign in ></a></footer>
+<script src="/js/app.js" defer></script>
 </body>
 </html>
