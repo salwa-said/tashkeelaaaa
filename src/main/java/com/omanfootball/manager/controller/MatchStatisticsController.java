@@ -16,7 +16,7 @@ public class MatchStatisticsController {
 
     private final MatchStatisticsService service;
 
-    @PutMapping("/for-match/{matchId}")
+    @PutMapping({"/for-match/{matchId}", "/for-match/update/{matchId}"})
     public ResponseEntity<MatchStatistics> saveForMatch(
             @PathVariable Long matchId,
             @RequestBody MatchStatistics statistics
