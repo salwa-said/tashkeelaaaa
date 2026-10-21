@@ -2,9 +2,11 @@ package com.omanfootball.manager.service;
 
 
 import com.omanfootball.manager.entity.Match;
+import com.omanfootball.manager.entity.Player;
 import com.omanfootball.manager.entity.PlayerPerformance;
 import com.omanfootball.manager.repository.MatchRepository;
 import com.omanfootball.manager.repository.PlayerPerformanceRepository;
+import com.omanfootball.manager.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
