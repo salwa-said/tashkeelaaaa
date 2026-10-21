@@ -1,9 +1,13 @@
 package com.omanfootball.manager.controller;
 
 
+import com.omanfootball.manager.entity.AIMatchReport;
+import com.omanfootball.manager.service.AIMatchReportService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/ai-match-reports")
