@@ -2,8 +2,10 @@ package com.omanfootball.manager.service;
 
 
 import com.omanfootball.manager.entity.Match;
+import com.omanfootball.manager.entity.Player;
 import com.omanfootball.manager.entity.StartingXIRecommendation;
 import com.omanfootball.manager.repository.MatchRepository;
+import com.omanfootball.manager.repository.PlayerRepository;
 import com.omanfootball.manager.repository.StartingXIRecommendationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
