@@ -68,7 +68,7 @@ public class ShareTeamService {
                     return new TeamMemberResponse(entry.getId(), player.getId(), player.getName(),
                             entry.getPosition(), player.getClub() == null ? "Unassigned" : player.getClub().getClubName(),
                             entry.getPrice(), entry.getOverallRating() == null ? 0.0 : entry.getOverallRating().doubleValue(),
-                            player.getImage(), entry.getFormationSlot());
+                            player.getImage(), entry.getFormationSlot(), player.getFantasyPoints(), entry.getIsCaptain());
                 }).toList();
         return new SharedTeamView(team.getTeamName(), team.getFormation(), team.getTotalPoints(),
                 team.getOverallRating(), players);
