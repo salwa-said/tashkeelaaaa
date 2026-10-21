@@ -14,6 +14,8 @@ import java.util.List;
 
 import com.omanfootball.manager.entity.Player;
 import com.omanfootball.manager.service.PlayerService;
+import com.omanfootball.manager.service.FantasyScoringService;
+import com.omanfootball.manager.dto.PlayerPointsBreakdown;
 
 
 
@@ -25,6 +27,13 @@ public class PlayerController {
 
 
     private final PlayerService service;
+
+    private final FantasyScoringService fantasyScoringService;
+
+    @GetMapping("/{id}/points-breakdown")
+    public ResponseEntity<PlayerPointsBreakdown> getPointsBreakdown(@PathVariable Long id) {
+        return ResponseEntity.ok(fantasyScoringService.getPlayerPointsBreakdown(id));
+    }
 
 
 
