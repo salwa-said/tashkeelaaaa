@@ -42,6 +42,8 @@ public class FantasyTeamService {
 
     private final UserRepository userRepository;
 
+    private final FantasyScoringService fantasyScoringService;
+
     @Transactional
     public MyTeamResponse getMine(String email) {
         User user = getUser(email);
@@ -50,6 +52,7 @@ public class FantasyTeamService {
             return new MyTeamResponse(null, "My Squad", startingBudget, 0, 0.0, "4-4-2", List.of());
         }
         String formation = normalizeFormation(team.getFormation());
+        fantasyScoringService.refreshTeamPoints(team.getTeamId());
         if (!formation.equals(team.getFormation())) team.setFormation(formation);
         List<FantasyTeamPlayer> entries = teamPlayerRepository.findByFantasyTeam_TeamId(team.getTeamId());
         boolean updatedSlots = false;
@@ -71,7 +74,7 @@ public class FantasyTeamService {
                     return new TeamMemberResponse(entry.getId(), player.getId(), player.getName(),
                             entry.getPosition(), player.getClub() == null ? "Unassigned" : player.getClub().getClubName(),
                             entry.getPrice(), entry.getOverallRating() == null ? 0.0 : entry.getOverallRating().doubleValue(),
-                            player.getImage(), entry.getFormationSlot());
+                            player.getImage(), entry.getFormationSlot(), player.getFantasyPoints(), entry.getIsCaptain());
                 }).toList();
         return new MyTeamResponse(team.getTeamId(), team.getTeamName(), team.getBudget(),
                 team.getTotalPoints(), team.getOverallRating(), normalizeFormation(team.getFormation()), players);
@@ -127,9 +130,6 @@ public class FantasyTeamService {
             occupant.setFantasyTeam(team);
             occupant.setIsCaptain(false);
             entries.add(occupant);
-        } else {
-            team.setTotalPoints((team.getTotalPoints() == null ? 0 : team.getTotalPoints())
-                    - occupant.getPlayer().getFantasyPoints());
         }
         occupant.setPlayer(player);
         occupant.setPosition(player.getPosition());
@@ -138,9 +138,9 @@ public class FantasyTeamService {
         occupant.setOverallRating((int) Math.round(player.getOverallRating()));
         teamPlayerRepository.save(occupant);
         team.setBudget(availableBudget - price);
-        team.setTotalPoints((team.getTotalPoints() == null ? 0 : team.getTotalPoints()) + player.getFantasyPoints());
         team.setOverallRating(entries.stream().mapToDouble(entry -> entry.getOverallRating() == null
                 ? 0.0 : entry.getOverallRating().doubleValue()).average().orElse(0.0));
+        team.setTotalPoints(entries.stream().mapToInt(this::memberPoints).sum());
         repository.save(team);
         return getMine(email);
     }
@@ -231,16 +231,38 @@ public class FantasyTeamService {
         List<FantasyTeamPlayer> entries = teamPlayerRepository.findByFantasyTeam_TeamId(team.getTeamId());
         int remaining = Math.max(0, entries.size() - 1);
         team.setBudget((team.getBudget() == null ? 0.0 : team.getBudget()) + entry.getPrice());
-        team.setTotalPoints(Math.max(0, (team.getTotalPoints() == null ? 0 : team.getTotalPoints())
-                - entry.getPlayer().getFantasyPoints()));
         if (remaining == 0) {
             team.setOverallRating(0.0);
         } else {
             team.setOverallRating((team.getOverallRating() * entries.size() - entry.getOverallRating()) / remaining);
         }
         teamPlayerRepository.delete(entry);
+        entries.remove(entry);
+        team.setTotalPoints(entries.stream().mapToInt(this::memberPoints).sum());
         repository.save(team);
         return getMine(email);
+    }
+
+    @Transactional
+    public MyTeamResponse setCaptain(String email, Long entryId) {
+        User user = getUser(email);
+        FantasyTeamPlayer selected = teamPlayerRepository.findById(entryId)
+                .orElseThrow(() -> new IllegalArgumentException("Squad player not found"));
+        FantasyTeam team = selected.getFantasyTeam();
+        if (team == null || team.getUser() == null || !team.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("That player is not in your squad");
+        }
+        List<FantasyTeamPlayer> entries = teamPlayerRepository.findByFantasyTeam_TeamId(team.getTeamId());
+        entries.forEach(entry -> entry.setIsCaptain(entry.getId().equals(entryId)));
+        teamPlayerRepository.saveAll(entries);
+        team.setTotalPoints(entries.stream().mapToInt(this::memberPoints).sum());
+        repository.save(team);
+        return getMine(email);
+    }
+
+    private int memberPoints(FantasyTeamPlayer entry) {
+        int points = entry.getPlayer() == null ? 0 : entry.getPlayer().getFantasyPoints();
+        return Boolean.TRUE.equals(entry.getIsCaptain()) ? points * 2 : points;
     }
 
     private User getUser(String email) {
@@ -280,7 +302,7 @@ public class FantasyTeamService {
 
     @Transactional
     public FantasyTeam createTeam(FantasyTeam team) {
-
+        team.setTotalPoints(0);
         return repository.save(team);
 
     }
@@ -312,9 +334,8 @@ public class FantasyTeamService {
 
 
 
-        team.setTotalPoints(
-                newTeam.getTotalPoints()
-        );
+        team.setTotalPoints(teamPlayerRepository.findByFantasyTeam_TeamId(team.getTeamId())
+                .stream().mapToInt(this::memberPoints).sum());
 
 
 
