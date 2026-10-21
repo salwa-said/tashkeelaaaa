@@ -3,6 +3,13 @@ package com.omanfootball.manager.controller;
 
 import com.omanfootball.manager.entity.PlayerPerformance;
 import com.omanfootball.manager.service.PerformanceService;
+import com.omanfootball.manager.dto.NewPlayerPerformanceRequest;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +24,7 @@ public class PerformanceController {
     private final PerformanceService service;
 
     @PostMapping("/record")
-    public ResponseEntity<PlayerPerformance> record(@RequestBody PerformanceRecord request) {
+    public ResponseEntity<PlayerPerformance> record(@Valid @RequestBody PerformanceRecord request) {
         PlayerPerformance performance = new PlayerPerformance();
         performance.setGoals(request.goals());
         performance.setAssists(request.assists());
@@ -27,12 +34,27 @@ public class PerformanceController {
         performance.setRedCards(request.redCards());
         performance.setCleanSheet(request.cleanSheet());
         performance.setManOfMatch(request.manOfMatch());
+        performance.setAiRating(request.aiRating());
         return ResponseEntity.ok(service.createForPlayerAndMatch(request.playerId(), request.matchId(), performance));
     }
 
-    public record PerformanceRecord(Long playerId, Long matchId, Integer goals, Integer assists,
-                                    Integer minutesPlayed, Double passAccuracy, Integer yellowCards,
-                                    Integer redCards, Boolean cleanSheet, Boolean manOfMatch) {}
+    @PostMapping("/record-with-player")
+    public ResponseEntity<PlayerPerformance> recordWithNewPlayer(@Valid @RequestBody NewPlayerPerformanceRequest request) {
+        return ResponseEntity.ok(service.createForNewPlayer(request));
+    }
+
+    public record PerformanceRecord(
+            @NotNull @Min(1) Long playerId,
+            @NotNull @Min(1) Long matchId,
+            @NotNull @Min(0) @Max(30) Integer goals,
+            @NotNull @Min(0) @Max(30) Integer assists,
+            @NotNull @Min(0) @Max(130) Integer minutesPlayed,
+            @NotNull @DecimalMin("0.0") @DecimalMax("100.0") Double passAccuracy,
+            @NotNull @Min(0) @Max(10) Integer yellowCards,
+            @NotNull @Min(0) @Max(5) Integer redCards,
+            @NotNull Boolean cleanSheet,
+            @NotNull Boolean manOfMatch,
+            @NotNull @DecimalMin("0.0") @DecimalMax("10.0") Double aiRating) {}
 
 
 
