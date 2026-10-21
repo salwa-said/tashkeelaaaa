@@ -27,6 +27,8 @@ public interface FantasyTeamPlayerRepository
             Long playerId
     );
 
+    List<FantasyTeamPlayer> findByPlayer_Id(Long playerId);
+
 
 
 }
