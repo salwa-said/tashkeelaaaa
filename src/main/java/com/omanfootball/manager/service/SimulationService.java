@@ -55,17 +55,17 @@ public class SimulationService {
             proposed.set(index, replacement);
             changes.append("Replace ").append(current.get(index).getName()).append(" with ").append(replacement.getName()).append(". ");
         }
-        double before = current.stream().mapToDouble(p -> Math.max(0, p.getFantasyPoints())).sum();
-        double after = proposed.stream().mapToDouble(p -> Math.max(0, p.getFantasyPoints())).sum();
+        double before = current.stream().mapToDouble(Player::getFantasyPoints).sum();
+        double after = proposed.stream().mapToDouble(Player::getFantasyPoints).sum();
         Player existingCaptain = entries.stream().filter(e -> Boolean.TRUE.equals(e.getIsCaptain()))
                 .map(FantasyTeamPlayer::getPlayer).findFirst().orElse(null);
-        if (existingCaptain != null) before += Math.max(0, existingCaptain.getFantasyPoints()) * 0.5;
+        if (existingCaptain != null) before += existingCaptain.getFantasyPoints();
         if (captainPlayerId != null) {
             Player captain = proposed.stream().filter(p -> p.getId().equals(captainPlayerId)).findFirst()
                     .orElseThrow(() -> new IllegalArgumentException("Captain must be in the proposed squad"));
-            after += Math.max(0, captain.getFantasyPoints()) * 0.5;
+            after += captain.getFantasyPoints();
             boolean wasCaptain = entries.stream().anyMatch(e -> Boolean.TRUE.equals(e.getIsCaptain()) && e.getPlayer().getId().equals(captainPlayerId));
-            if (!wasCaptain) changes.append("Set ").append(captain.getName()).append(" as captain (projected 50% points bonus). ");
+            if (!wasCaptain) changes.append("Set ").append(captain.getName()).append(" as captain (captain points are doubled). ");
         }
         if (changes.isEmpty()) changes.append("No player or captain changes; baseline squad projection.");
         WhatIfSimulation simulation = new WhatIfSimulation();
