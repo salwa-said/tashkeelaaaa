@@ -50,6 +50,11 @@ public class FantasyTeamController {
         return ResponseEntity.ok(service.changeFormation(authentication.getName(), request.get("formation")));
     }
 
+    @PutMapping("/mine/captain/{entryId}")
+    public ResponseEntity<MyTeamResponse> setMineCaptain(Authentication authentication, @PathVariable Long entryId) {
+        return ResponseEntity.ok(service.setCaptain(authentication.getName(), entryId));
+    }
+
     @DeleteMapping("/mine/players/{entryId}")
     public ResponseEntity<MyTeamResponse> removeMinePlayer(Authentication authentication, @PathVariable Long entryId) {
         return ResponseEntity.ok(service.removePlayerFromMine(authentication.getName(), entryId));
