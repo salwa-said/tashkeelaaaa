@@ -1,0 +1,21 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Player insights  |  Tashkeela</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="app-page insights-page">
+<header id="appHeader"></header>
+<main class="app-main">
+<section class="page-heading"><div><p class="eyebrow">INSIGHTS</p><h1>Player insights</h1><p class="muted">Performance based forecasts and head to head player comparisons.</p></div></section>
+<section class="panel section-panel"><div class="section-heading"><div><p class="eyebrow">FANTASY FORECAST</p><h2>Analyze a player</h2></div></div><form id="aiAnalysisForm" class="form-grid"><label>Player<select id="aiPlayerSelect" required><option value="">Loading players...</option></select></label><button class="button button-primary" type="submit">Generate forecast</button><button id="ratingHistoryButton" class="button button-quiet" type="button">View rating history</button></form><div id="aiAnalysisResult" class="ai-result" aria-live="polite" hidden></div><div id="ratingHistoryResult" class="ai-result" hidden></div></section>
+<section class="panel section-panel"><div class="section-heading"><div><p class="eyebrow">PLAYER COMPARISON</p><h2>Compare players</h2></div></div><form id="playerCompareForm" class="form-grid"><label>Player one<select id="comparePlayerOne" required></select></label><label>Player two<select id="comparePlayerTwo" required></select></label><button class="button button-primary" type="submit">Compare</button></form><div id="playerCompareResult" class="ai-result" aria-live="polite" hidden></div></section>
+<section class="panel section-panel"><div class="section-heading"><div><p class="eyebrow">STARTING XI</p><h2>Build a match lineup</h2><p class="muted">Generate a recommended XI for both clubs, shown on separate pitch boards.</p></div></div><form id="startingXIForm" class="form-grid"><label>Match<select id="xiMatchSelect" required><option value="">Loading matches...</option></select></label><button class="button button-primary" type="submit">Recommend both lineups</button></form><div id="startingXIResult" class="ai-result xi-result" aria-live="polite" hidden></div></section>
+<section class="panel section-panel"><div class="section-heading"><div><p class="eyebrow">WHAT-IF SIMULATION</p><h2>Try a squad change</h2><p class="muted">Review your current team, then model a player or captain change before committing anything.</p></div></div><div id="simulationCurrentTeam" class="simulation-current-team"><p class="muted">Loading your current squad...</p></div><form id="simulationForm" class="form-grid" hidden><label>Player to replace<select id="simulationRemove" required></select></label><label>Replacement player<select id="simulationAdd" required></select></label><label>Captain for the simulation<select id="simulationCaptain" required></select></label><label>Formation<select id="simulationFormation"><option>4-4-2</option><option>4-3-3</option><option>3-5-2</option><option>4-2-3-1</option></select></label><button class="button button-primary" type="submit">Analyze this change</button></form><div id="simulationResult" class="ai-result simulation-result" aria-live="polite" hidden></div></section>
+<section class="panel section-panel"><div class="section-heading"><div><p class="eyebrow">SAVED PLAYER RATINGS</p><h2>Top rated</h2></div></div><div id="insightPlayers" class="data-grid"><p class="muted">Loading player ratings...</p></div></section>
+</main>
+<script src="/js/app.js"></script>
+</body>
+</html>
