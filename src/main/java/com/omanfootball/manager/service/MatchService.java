@@ -15,6 +15,7 @@ import java.util.List;
 public class MatchService {
 
     private final MatchRepository matchRepository;
+    private final FantasyScoringService fantasyScoringService;
 
 
 
@@ -110,7 +111,9 @@ public class MatchService {
 
 
 
-        return matchRepository.save(match);
+        Match saved = matchRepository.save(match);
+        fantasyScoringService.refreshMatchPoints(saved.getId());
+        return saved;
 
 
     }
