@@ -23,6 +23,8 @@ public class FantasyTeamPlayerService {
 
     private final FantasyTeamPlayerRepository repository;
 
+    private final FantasyScoringService fantasyScoringService;
+
 
 
 
@@ -58,7 +60,11 @@ public class FantasyTeamPlayerService {
             FantasyTeamPlayer fantasyTeamPlayer
     ) {
 
-        return repository.save(fantasyTeamPlayer);
+        FantasyTeamPlayer saved = repository.save(fantasyTeamPlayer);
+        if (saved.getFantasyTeam() != null) {
+            fantasyScoringService.refreshTeamPoints(saved.getFantasyTeam().getTeamId());
+        }
+        return saved;
 
     }
 
@@ -74,6 +80,7 @@ public class FantasyTeamPlayerService {
 
 
         FantasyTeamPlayer player = getById(id);
+        Long oldTeamId = player.getFantasyTeam() == null ? null : player.getFantasyTeam().getTeamId();
 
 
 
@@ -112,8 +119,26 @@ public class FantasyTeamPlayerService {
         );
 
 
+        if (Boolean.TRUE.equals(player.getIsCaptain()) && player.getFantasyTeam() != null) {
+            repository.findByFantasyTeam_TeamId(player.getFantasyTeam().getTeamId()).forEach(entry -> {
+                if (!entry.getId().equals(player.getId())) {
+                    entry.setIsCaptain(false);
+                }
+            });
+            player.setIsCaptain(true);
+        }
 
-        return repository.save(player);
+
+
+        FantasyTeamPlayer saved = repository.save(player);
+        Long newTeamId = saved.getFantasyTeam() == null ? null : saved.getFantasyTeam().getTeamId();
+        if (oldTeamId != null && !oldTeamId.equals(newTeamId)) {
+            fantasyScoringService.refreshTeamPoints(oldTeamId);
+        }
+        if (newTeamId != null) {
+            fantasyScoringService.refreshTeamPoints(newTeamId);
+        }
+        return saved;
 
     }
 
@@ -126,9 +151,14 @@ public class FantasyTeamPlayerService {
 
 
         FantasyTeamPlayer player = getById(id);
+        Long teamId = player.getFantasyTeam() == null ? null : player.getFantasyTeam().getTeamId();
 
 
         repository.delete(player);
+
+        if (teamId != null) {
+            fantasyScoringService.refreshTeamPoints(teamId);
+        }
 
 
     }
