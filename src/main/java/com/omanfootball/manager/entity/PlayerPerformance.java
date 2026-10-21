@@ -46,6 +46,8 @@ public class PlayerPerformance {
 
     private Boolean manOfMatch = false;
 
+    private Double aiRating = 0.0;
+
 
 
     @ManyToOne(fetch = FetchType.LAZY)
