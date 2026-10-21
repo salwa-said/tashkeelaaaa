@@ -16,7 +16,7 @@
 
         <artifactId>spring-boot-starter-parent</artifactId>
 
-        <version>3.3.5</version>
+        <version>3.5.5</version>
 
         <relativePath/>
 
@@ -26,15 +26,19 @@
 
     <groupId>com.omanfootball</groupId>
 
-    <artifactId>oman-ai-football-manager</artifactId>
+    <artifactId>tashkeela</artifactId>
 
     <version>1.0.0</version>
 
-    <name>oman-ai-football-manager</name>
+
+
+    <name>TASHKEELA</name>
 
     <description>
-        Oman AI Fantasy Football Manager Backend
+        TASHKEELA AI Fantasy Football Platform
     </description>
+
+
 
 
 
@@ -47,130 +51,159 @@
 
 
 
+
     <dependencies>
 
 
-        <!-- Spring Web (REST API) -->
+        <!-- WEB -->
 
         <dependency>
 
             <groupId>org.springframework.boot</groupId>
 
-            <artifactId>
-                spring-boot-starter-web
-            </artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
 
         </dependency>
 
 
 
 
-        <!-- Spring Data JPA + Hibernate -->
+        <!-- JPA -->
 
         <dependency>
 
             <groupId>org.springframework.boot</groupId>
 
-            <artifactId>
-                spring-boot-starter-data-jpa
-            </artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
 
         </dependency>
 
 
 
 
-        <!-- Spring Security -->
+        <!-- SECURITY -->
 
         <dependency>
 
             <groupId>org.springframework.boot</groupId>
 
-            <artifactId>
-                spring-boot-starter-security
-            </artifactId>
+            <artifactId>spring-boot-starter-security</artifactId>
 
         </dependency>
 
 
 
 
-        <!-- Validation -->
+        <!-- VALIDATION -->
 
         <dependency>
 
             <groupId>org.springframework.boot</groupId>
 
-            <artifactId>
-                spring-boot-starter-validation
-            </artifactId>
+            <artifactId>spring-boot-starter-validation</artifactId>
 
         </dependency>
 
 
 
 
-        <!-- MySQL Database -->
+        <!-- EMAIL -->
 
         <dependency>
 
-            <groupId>
-                com.mysql
-            </groupId>
+            <groupId>org.springframework.boot</groupId>
 
-            <artifactId>
-                mysql-connector-j
-            </artifactId>
-
-            <scope>
-                runtime
-            </scope>
+            <artifactId>spring-boot-starter-mail</artifactId>
 
         </dependency>
 
 
 
 
-        <!-- Lombok -->
+        <!-- MARIADB -->
 
         <dependency>
 
-            <groupId>
-                org.projectlombok
-            </groupId>
+            <groupId>org.mariadb.jdbc</groupId>
 
-            <artifactId>
-                lombok
-            </artifactId>
+            <artifactId>mariadb-java-client</artifactId>
 
-            <version>
-                1.18.34
-            </version>
-
-            <scope>
-                provided
-            </scope>
+            <scope>runtime</scope>
 
         </dependency>
 
 
 
 
-        <!-- Testing -->
+        <!-- LOMBOK -->
 
         <dependency>
 
-            <groupId>
-                org.springframework.boot
-            </groupId>
+            <groupId>org.projectlombok</groupId>
 
-            <artifactId>
-                spring-boot-starter-test
-            </artifactId>
+            <artifactId>lombok</artifactId>
 
-            <scope>
-                test
-            </scope>
+            <version>1.18.48</version>
+
+            <scope>provided</scope>
+
+        </dependency>
+
+
+
+
+        <!-- JWT -->
+
+        <dependency>
+
+            <groupId>io.jsonwebtoken</groupId>
+
+            <artifactId>jjwt-api</artifactId>
+
+            <version>0.12.6</version>
+
+        </dependency>
+
+
+
+        <dependency>
+
+            <groupId>io.jsonwebtoken</groupId>
+
+            <artifactId>jjwt-impl</artifactId>
+
+            <version>0.12.6</version>
+
+            <scope>runtime</scope>
+
+        </dependency>
+
+
+
+        <dependency>
+
+            <groupId>io.jsonwebtoken</groupId>
+
+            <artifactId>jjwt-jackson</artifactId>
+
+            <version>0.12.6</version>
+
+            <scope>runtime</scope>
+
+        </dependency>
+
+
+
+
+        <!-- TEST -->
+
+        <dependency>
+
+            <groupId>org.springframework.boot</groupId>
+
+            <artifactId>spring-boot-starter-test</artifactId>
+
+            <scope>test</scope>
 
         </dependency>
 
@@ -182,21 +215,42 @@
 
 
 
+
+
     <build>
 
         <plugins>
 
 
+            <!-- JAVA 17 COMPILER -->
+
             <plugin>
 
-                <groupId>
-                    org.springframework.boot
-                </groupId>
+                <groupId>org.apache.maven.plugins</groupId>
 
-                <artifactId>
-                    spring-boot-maven-plugin
-                </artifactId>
+                <artifactId>maven-compiler-plugin</artifactId>
 
+                <version>3.13.0</version>
+
+                <configuration>
+
+                    <release>17</release>
+
+                </configuration>
+
+            </plugin>
+
+
+
+
+
+            <!-- SPRING BOOT -->
+
+            <plugin>
+
+                <groupId>org.springframework.boot</groupId>
+
+                <artifactId>spring-boot-maven-plugin</artifactId>
 
             </plugin>
 
