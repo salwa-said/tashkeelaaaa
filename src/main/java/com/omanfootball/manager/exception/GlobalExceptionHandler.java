@@ -11,4 +11,57 @@ import org.springframework.web.bind.annotation.*;
 public class GlobalExceptionHandler {
 
 
+
+
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleNotFound(
+
+            ResourceNotFoundException ex
+
+    ){
+
+
+
+        return new ResponseEntity<>(
+
+                ex.getMessage(),
+
+                HttpStatus.NOT_FOUND
+
+        );
+
+
+
+    }
+
+
+
+
+
+
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(
+
+            Exception ex
+
+    ){
+
+
+
+        return new ResponseEntity<>(
+
+                ex.getMessage(),
+
+                HttpStatus.BAD_REQUEST
+
+        );
+
+
+
+    }
+
+
+
 }
