@@ -66,14 +66,14 @@ src/main/java/com/omanfootball/manager/
 
 Login sends a 6-digit code to the user's email. The code is also printed in the console.
 
-## Environment variables
+## Team
 
-| Variable | Default | Description |
-|---|---|---|
-| `DB_USERNAME` | `root` | Database user |
-| `DB_PASSWORD` | `admin` | Database password |
-| `BOOTSTRAP_ADMIN_EMAIL` | — | First admin email, created on the first run |
-| `BOOTSTRAP_ADMIN_PASSWORD` | — | First admin password |
+| Role | Member |
+|---|---|
+| `Team Leader` | `Salwa Said` |
+| `Team Members` | `Almonther Alwaili - Mohammed Alhamrashdi - Rashid Alshibli - Salima Alsaidi ` |
+| `Supervisor` | `Fatma Al-mamari & Is'haq Al-balushi` |
+
 
 In IntelliJ: `Run` → `Edit Configurations` → `Environment variables`.
 
